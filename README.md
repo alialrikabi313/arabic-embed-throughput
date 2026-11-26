@@ -22,7 +22,7 @@ Hardware: one laptop RTX 5090 (see caveats). Full table: [results.md](results.md
    yet the retrieved top-10 diverges more — for e5-small only 91.6% overlap. Cosine similarity of
    the embeddings alone would have hidden this; measure the ranking. (More mantissa bits matter when
    the scores of neighbouring passages are close.)
-3. **SDPA attention alone gives ~1.2–1.4×** in both fp32 and fp16, plus lower memory.
+3. **SDPA attention alone gives ~1.1–1.4×** (smallest for bge-m3 in fp32: 1.11×), plus lower memory.
 4. **Single-query latency is flat**: ~4.3–5.3 ms for the small models and ~8–9 ms for bge-m3 at
    batch size 1, regardless of precision or attention. It is launch-bound, so these optimisations
    matter for *indexing*, not for query-time latency.
@@ -34,7 +34,7 @@ Hardware: one laptop RTX 5090 (see caveats). Full table: [results.md](results.md
 - 4,000 real passages (title + text) from the MIRACL-ar corpus; 200 real dev queries.
 - `max_seq_len = 256` for every model and configuration.
 - Throughput = median of 3 timed runs after 1 warm-up, with `cuda.synchronize` around the timer;
-  min–max across runs is reported (spread was ≤ 2% except one bge-m3/MiniLM outlier run).
+  min–max across runs is reported (spread was within ~2% except one MiniLM fp16/eager batch-256 run, 2,252–3,214/s).
 - Parity: every configuration is compared with the model's own fp32/eager embeddings — cosine
   (mean and **min**) and the overlap of the top-10 passages for the 200 queries.
 - Configurations a model rejects are recorded with the reason, not dropped.
