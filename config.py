@@ -2,6 +2,7 @@
 """الإعدادات. عدّل هنا فقط عند تغيير النماذج أو شبكة التجارب أو حجم العيّنة."""
 
 import os
+import sys
 from pathlib import Path
 
 _HERE = Path(__file__).resolve().parent
@@ -48,3 +49,26 @@ QUALITY_N_QUERIES = 500
 QUALITY_N_PASSAGES = 20_000
 SYSTEMS_RESULTS_JSON = _HERE / "results" / "systems.json"
 SYSTEMS_RESULTS_MD = _HERE / "results_systems.md"
+
+# بادئة الاستعلام (e5 يتطلب «query: » وإلا تنخفض الجودة بصمت)
+QUERY_PREFIX: dict[str, str] = {
+    "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2": "",
+    "intfloat/multilingual-e5-small": "query: ",
+    "BAAI/bge-m3": "",
+}
+# التقنيات بالترتيب؛ الأولى (fp32) مرجع التكافؤ. الاسم: إطار-دقة[+تحويل]
+TECHNIQUES = (
+    "pt-fp32-sdpa",
+    "pt-fp16-sdpa",
+    "pt-fp16-sdpa+compile",
+    "pt-bf16-sdpa",
+    "ort-fp16-cuda",
+    "ort-fp16-tensorrt",
+    "pt-bf16+int8dyn",
+    "pt-bf16+int8dyn+compile",
+    "pt-bf16+fp8dyn",
+    "pt-bf16+fp8dyn+compile",
+)
+# قفل GPU مشترك بين العمال (mkdir ذرّي)؛ المسار يختلف بين ويندوز و WSL لنفس المجلد
+_LOCK_DEFAULT = "/mnt/d/projects/.gpu_lock" if sys.platform.startswith("linux") else "D:/projects/.gpu_lock"
+GPU_LOCK = Path(os.environ.get("AET_GPU_LOCK", _LOCK_DEFAULT))
