@@ -197,6 +197,12 @@ def measure(name: str, technique: str, inputs: dict, ref: dict, tmp_dir: str) ->
     p, q = encode(docs, 64), encode(queries, 64)
     if technique == TECHNIQUES[0]:
         ref.update({"p": p, "q": q})
+    elif "p" not in ref:
+        # الاستئناف: صف fp32 أُنجز في عملية سابقة فلا مرجع في الذاكرة؛ نعيد حسابه (غير مُقاس زمنياً)
+        ref_encode, _ = make_encoder(name, TECHNIQUES[0], tmp_dir)
+        ref.update({"p": ref_encode(docs, 64), "q": ref_encode(queries, 64)})
+        del ref_encode
+        torch.cuda.empty_cache()
     row.update(cosine_stats(ref["p"], p))
     row["top10_overlap"] = topk_overlap(ref["q"], ref["p"], q, p)
 
