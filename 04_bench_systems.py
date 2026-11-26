@@ -132,8 +132,14 @@ def make_encoder(name: str, technique: str, tmp_dir: str):
                                  model_kwargs={"torch_dtype": torch.float16, "attn_implementation": "eager"})
         st.max_seq_length = MAX_SEQ_LEN
         if "tensorrt" in rest:
-            providers = [("TensorrtExecutionProvider", {"trt_fp16_enable": True, "trt_engine_cache_enable": True,
-                                                         "trt_engine_cache_path": os.path.join(tmp_dir, "trt_cache")}),
+            # أشكال ديناميكية: بلا ملفات أشكال يعيد TensorRT بناء المحرك لكل شكل جديد فيصير القياس بناءً لا استدلالاً
+            shapes = lambda b, n: f"input_ids:{b}x{n},attention_mask:{b}x{n}"
+            providers = [("TensorrtExecutionProvider", {
+                            "trt_fp16_enable": True, "trt_engine_cache_enable": True,
+                            "trt_engine_cache_path": os.path.join(tmp_dir, "trt_cache"),
+                            "trt_profile_min_shapes": shapes(1, 1),
+                            "trt_profile_opt_shapes": shapes(64, 128),
+                            "trt_profile_max_shapes": shapes(256, MAX_SEQ_LEN)}),
                          "CUDAExecutionProvider"]
         else:
             providers = ["CUDAExecutionProvider"]
@@ -159,6 +165,8 @@ def make_encoder(name: str, technique: str, tmp_dir: str):
         # نغلّف forward نفسه: إسناد st[0].auto_model لا يبدّل ما تستدعيه ST فتبقى الترجمة معطّلة بصمت
         from torch._dynamo.utils import counters
 
+        # نفس البنية والأشكال (MiniLM و e5-small) تعيد استخدام رسم مخزَّن فلا يُسجَّل رسم جديد؛ نصفّر الذاكرة لكل صف
+        torch._dynamo.reset()
         counters.clear()
         inner.forward = torch.compile(inner.forward, dynamic=True)
 
