@@ -1,0 +1,833 @@
+[
+ {
+  "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "technique": "pt-fp32-sdpa",
+  "prep_seconds": 30.0,
+  "throughput": {
+   "16": {
+    "passages_per_s": 1145.3556521103958,
+    "min": 1117.4969224874644,
+    "max": 1315.059740545425
+   },
+   "64": {
+    "passages_per_s": 1596.5201799133338,
+    "min": 1584.861022078822,
+    "max": 1614.387871573796
+   },
+   "256": {
+    "passages_per_s": 1668.4019917380317,
+    "min": 1651.3813460645247,
+    "max": 1791.659805598658
+   }
+  },
+  "peak_mem_gb": 1.697850368,
+  "latency_ms_p50": 6.665702999953282,
+  "latency_ms_p95": 14.303684150013394,
+  "cos_mean": 1.0,
+  "cos_min": 0.9999998807907104,
+  "top10_overlap": 1.0,
+  "ndcg@10": 0.381226566867573,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "technique": "pt-fp16-sdpa",
+  "prep_seconds": 2.0,
+  "throughput": {
+   "16": {
+    "passages_per_s": 1109.9370844094572,
+    "min": 1100.1632720959515,
+    "max": 1402.5751209797365
+   },
+   "64": {
+    "passages_per_s": 3066.079170943043,
+    "min": 3007.1037624087576,
+    "max": 3412.2333501375197
+   },
+   "256": {
+    "passages_per_s": 4160.348293708023,
+    "min": 4100.678623152009,
+    "max": 4184.669327703397
+   }
+  },
+  "peak_mem_gb": 0.85931264,
+  "latency_ms_p50": 7.096015000570333,
+  "latency_ms_p95": 15.02955299984023,
+  "cos_mean": 0.9999995231628418,
+  "cos_min": 0.9999958872795105,
+  "top10_overlap": 0.9975,
+  "ndcg@10": 0.381839623391775,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "technique": "pt-bf16-sdpa",
+  "prep_seconds": 2.5,
+  "throughput": {
+   "16": {
+    "passages_per_s": 1327.8630906759463,
+    "min": 1308.2122006045859,
+    "max": 1452.1299351434386
+   },
+   "64": {
+    "passages_per_s": 3029.0735500013125,
+    "min": 2991.913383951168,
+    "max": 3329.7391767939216
+   },
+   "256": {
+    "passages_per_s": 3999.395743296445,
+    "min": 3909.2389147434683,
+    "max": 4436.632791144287
+   }
+  },
+  "peak_mem_gb": 0.85931264,
+  "latency_ms_p50": 6.52595849987847,
+  "latency_ms_p95": 11.008000999754582,
+  "cos_mean": 0.9999685287475586,
+  "cos_min": 0.9994291663169861,
+  "top10_overlap": 0.98,
+  "ndcg@10": 0.38252866886631937,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "technique": "pt-bf16+int8dyn",
+  "prep_seconds": 2.2,
+  "throughput": {
+   "16": {
+    "passages_per_s": 39.41579100980561,
+    "min": 38.91162879855112,
+    "max": 40.002302175692655
+   },
+   "64": {
+    "passages_per_s": 189.0415473409215,
+    "min": 185.423556335019,
+    "max": 191.39976438254183
+   },
+   "256": {
+    "passages_per_s": 561.9308768381193,
+    "min": 491.7756887018615,
+    "max": 581.7972179931114
+   }
+  },
+  "peak_mem_gb": 1.44153856,
+  "latency_ms_p50": 425.174186500044,
+  "latency_ms_p95": 531.0492822993638,
+  "cos_mean": 0.9992384314537048,
+  "cos_min": 0.9860599637031555,
+  "top10_overlap": 0.9345,
+  "ndcg@10": 0.3823204582654182,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "technique": "pt-bf16+fp8dyn",
+  "prep_seconds": 2.1,
+  "throughput": {
+   "16": {
+    "passages_per_s": 225.18368028165366,
+    "min": 202.08016894291248,
+    "max": 234.83439831422328
+   },
+   "64": {
+    "passages_per_s": 852.4896680926909,
+    "min": 826.9231243319343,
+    "max": 924.5300140116469
+   },
+   "256": {
+    "passages_per_s": 2033.7874884852465,
+    "min": 2031.7376395736098,
+    "max": 2045.9972414566478
+   }
+  },
+  "peak_mem_gb": 1.94434816,
+  "latency_ms_p50": 65.74019699974087,
+  "latency_ms_p95": 72.51416404965312,
+  "cos_mean": 0.9984871745109558,
+  "cos_min": 0.990729808807373,
+  "top10_overlap": 0.9335000000000001,
+  "ndcg@10": 0.3862859762299904,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "intfloat/multilingual-e5-small",
+  "technique": "pt-fp32-sdpa",
+  "prep_seconds": 27.7,
+  "throughput": {
+   "16": {
+    "passages_per_s": 1098.2217175250814,
+    "min": 1032.1535397255445,
+    "max": 1255.2798313215008
+   },
+   "64": {
+    "passages_per_s": 1649.3294984294014,
+    "min": 1639.5262120760447,
+    "max": 1652.4994699164465
+   },
+   "256": {
+    "passages_per_s": 1693.3185789463546,
+    "min": 1652.4246670140244,
+    "max": 1791.0444860774442
+   }
+  },
+  "peak_mem_gb": 1.697850368,
+  "latency_ms_p50": 6.209418999333138,
+  "latency_ms_p95": 11.1726674001602,
+  "cos_mean": 1.0,
+  "cos_min": 0.9999998211860657,
+  "top10_overlap": 1.0,
+  "ndcg@10": 0.8559781667161712,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "intfloat/multilingual-e5-small",
+  "technique": "pt-fp16-sdpa",
+  "prep_seconds": 4.1,
+  "throughput": {
+   "16": {
+    "passages_per_s": 1322.4878362925767,
+    "min": 1281.5405253073377,
+    "max": 1358.8522063488106
+   },
+   "64": {
+    "passages_per_s": 3070.2115731692875,
+    "min": 2954.1971575526914,
+    "max": 3263.0128184380615
+   },
+   "256": {
+    "passages_per_s": 3952.997808511793,
+    "min": 3942.1908072992464,
+    "max": 3984.0904154116793
+   }
+  },
+  "peak_mem_gb": 0.85931264,
+  "latency_ms_p50": 9.942085499915265,
+  "latency_ms_p95": 16.681322499835005,
+  "cos_mean": 0.9999998807907104,
+  "cos_min": 0.9999995231628418,
+  "top10_overlap": 0.9925,
+  "ndcg@10": 0.8568584053054509,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "intfloat/multilingual-e5-small",
+  "technique": "pt-bf16-sdpa",
+  "prep_seconds": 4.1,
+  "throughput": {
+   "16": {
+    "passages_per_s": 1121.9997030896636,
+    "min": 1071.2992534610034,
+    "max": 1129.3557899000543
+   },
+   "64": {
+    "passages_per_s": 2875.2039394729672,
+    "min": 2443.1459431865237,
+    "max": 2975.788698218374
+   },
+   "256": {
+    "passages_per_s": 3985.9494603931776,
+    "min": 3966.919477652096,
+    "max": 4058.754785926054
+   }
+  },
+  "peak_mem_gb": 0.85931264,
+  "latency_ms_p50": 10.38395900013711,
+  "latency_ms_p95": 17.716918949463434,
+  "cos_mean": 0.9999717473983765,
+  "cos_min": 0.9999492764472961,
+  "top10_overlap": 0.9305000000000001,
+  "ndcg@10": 0.8553442731381056,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "intfloat/multilingual-e5-small",
+  "technique": "pt-bf16+int8dyn",
+  "prep_seconds": 4.9,
+  "throughput": {
+   "16": {
+    "passages_per_s": 40.34100283461546,
+    "min": 40.12111032587022,
+    "max": 40.56301766248057
+   },
+   "64": {
+    "passages_per_s": 190.97984013699605,
+    "min": 183.87175051348316,
+    "max": 192.30665466536058
+   },
+   "256": {
+    "passages_per_s": 572.0161778255457,
+    "min": 516.2228497994798,
+    "max": 576.9789099794084
+   }
+  },
+  "peak_mem_gb": 1.44153856,
+  "latency_ms_p50": 414.96388650011795,
+  "latency_ms_p95": 524.7060183001395,
+  "cos_mean": 0.9990814328193665,
+  "cos_min": 0.9982748031616211,
+  "top10_overlap": 0.8820000000000001,
+  "ndcg@10": 0.8540502785804124,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "BAAI/bge-m3",
+  "technique": "pt-fp32-sdpa",
+  "prep_seconds": 3.6,
+  "throughput": {
+   "16": {
+    "passages_per_s": 220.91400456343152,
+    "min": 220.50075536874772,
+    "max": 221.59450354387468
+   },
+   "64": {
+    "passages_per_s": 224.22456236294553,
+    "min": 223.79062965793523,
+    "max": 224.55344073345736
+   },
+   "256": {
+    "passages_per_s": 226.77889823413366,
+    "min": 226.73639938961415,
+    "max": 227.295699041695
+   }
+  },
+  "peak_mem_gb": 5.51229952,
+  "latency_ms_p50": 9.769525499962128,
+  "latency_ms_p95": 15.737748399999418,
+  "cos_mean": 1.0,
+  "cos_min": 0.9999997615814209,
+  "top10_overlap": 1.0,
+  "ndcg@10": 0.8894874919980037,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "BAAI/bge-m3",
+  "technique": "pt-fp16-sdpa",
+  "prep_seconds": 3.3,
+  "throughput": {
+   "16": {
+    "passages_per_s": 678.8660635044055,
+    "min": 677.1852224279148,
+    "max": 679.8148788829369
+   },
+   "64": {
+    "passages_per_s": 747.5761271946111,
+    "min": 747.3819214095607,
+    "max": 748.7888277532104
+   },
+   "256": {
+    "passages_per_s": 652.2193496563436,
+    "min": 645.2101957984981,
+    "max": 657.698658698697
+   }
+  },
+  "peak_mem_gb": 2.765652992,
+  "latency_ms_p50": 7.3469849999696635,
+  "latency_ms_p95": 11.770190599997932,
+  "cos_mean": 0.9999985098838806,
+  "cos_min": 0.9998408555984497,
+  "top10_overlap": 0.9964999999999999,
+  "ndcg@10": 0.8895613811999071,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "BAAI/bge-m3",
+  "technique": "pt-bf16-sdpa",
+  "prep_seconds": 3.4,
+  "throughput": {
+   "16": {
+    "passages_per_s": 684.9020449200148,
+    "min": 681.5139582466765,
+    "max": 685.846463259615
+   },
+   "64": {
+    "passages_per_s": 768.4142073713389,
+    "min": 766.3249662022613,
+    "max": 769.2760875809596
+   },
+   "256": {
+    "passages_per_s": 684.380479898137,
+    "min": 681.5051525230286,
+    "max": 685.3103983051844
+   }
+  },
+  "peak_mem_gb": 2.765652992,
+  "latency_ms_p50": 9.063878000119985,
+  "latency_ms_p95": 12.650929349933904,
+  "cos_mean": 0.9998902678489685,
+  "cos_min": 0.9992640614509583,
+  "top10_overlap": 0.9794999999999999,
+  "ndcg@10": 0.8883950945535958,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "BAAI/bge-m3",
+  "technique": "pt-bf16+int8dyn",
+  "prep_seconds": 3.2,
+  "throughput": {
+   "16": {
+    "passages_per_s": 43.17999956445267,
+    "min": 42.95953644153745,
+    "max": 43.814524716273375
+   },
+   "64": {
+    "passages_per_s": 132.84867151085203,
+    "min": 130.9709661760671,
+    "max": 133.20967387836492
+   },
+   "256": {
+    "passages_per_s": 201.03174945802908,
+    "min": 201.01626716744676,
+    "max": 202.3693220931453
+   }
+  },
+  "peak_mem_gb": 4.074665984,
+  "latency_ms_p50": 411.2968724999746,
+  "latency_ms_p95": 462.241854800061,
+  "cos_mean": 0.9872997999191284,
+  "cos_min": 0.963902473449707,
+  "top10_overlap": 0.8125,
+  "ndcg@10": 0.8886864389672935,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "BAAI/bge-m3",
+  "technique": "pt-bf16+fp8dyn",
+  "prep_seconds": 3.6,
+  "throughput": {
+   "16": {
+    "passages_per_s": 170.53829734045704,
+    "min": 165.36829342752023,
+    "max": 176.22731107387187
+   },
+   "64": {
+    "passages_per_s": 461.54810066874154,
+    "min": 461.54159242360834,
+    "max": 473.3758378965757
+   },
+   "256": {
+    "passages_per_s": 428.0569797103042,
+    "min": 428.0259769085235,
+    "max": 428.17957390224433
+   }
+  },
+  "peak_mem_gb": 5.415479296,
+  "latency_ms_p50": 79.64755550005975,
+  "latency_ms_p95": 97.42563694987894,
+  "cos_mean": 0.9941171407699585,
+  "cos_min": 0.9807168841362,
+  "top10_overlap": 0.8735,
+  "ndcg@10": 0.885870162833076,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "technique": "ort-fp16-cuda",
+  "prep_seconds": 5.4,
+  "throughput": {
+   "16": {
+    "passages_per_s": 2850.913068379287,
+    "min": 2787.2686695474204,
+    "max": 2872.644927499167
+   },
+   "64": {
+    "passages_per_s": 3595.9212515256118,
+    "min": 3506.6397913233527,
+    "max": 3608.999675875555
+   },
+   "256": {
+    "passages_per_s": 3354.768219502944,
+    "min": 3333.225175731661,
+    "max": 3388.148077605434
+   }
+  },
+  "peak_mem_gb": 0.2371712,
+  "latency_ms_p50": 3.538391499887439,
+  "latency_ms_p95": 4.045913499726339,
+  "cos_mean": 0.9999994039535522,
+  "cos_min": 0.9999955296516418,
+  "top10_overlap": 0.998,
+  "ndcg@10": 0.38090013837246434,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "intfloat/multilingual-e5-small",
+  "technique": "ort-fp16-cuda",
+  "prep_seconds": 5.4,
+  "throughput": {
+   "16": {
+    "passages_per_s": 2857.8781463218947,
+    "min": 2852.4690845101627,
+    "max": 2896.094934768348
+   },
+   "64": {
+    "passages_per_s": 3502.4295092626526,
+    "min": 3472.717811007225,
+    "max": 3525.6689363391756
+   },
+   "256": {
+    "passages_per_s": 3350.5857282046627,
+    "min": 3328.165876000913,
+    "max": 3393.478863482831
+   }
+  },
+  "peak_mem_gb": 0.2371712,
+  "latency_ms_p50": 2.724958500266439,
+  "latency_ms_p95": 4.406178049794107,
+  "cos_mean": 0.9999998211860657,
+  "cos_min": 0.999998927116394,
+  "top10_overlap": 0.9975,
+  "ndcg@10": 0.8566464134259595,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "intfloat/multilingual-e5-small",
+  "technique": "pt-bf16+fp8dyn",
+  "prep_seconds": 3.6,
+  "throughput": {
+   "16": {
+    "passages_per_s": 326.268108430797,
+    "min": 313.385222543353,
+    "max": 356.91093574758895
+   },
+   "64": {
+    "passages_per_s": 1224.1472727661182,
+    "min": 1201.0349696660492,
+    "max": 1298.7922554843876
+   },
+   "256": {
+    "passages_per_s": 2278.6004832868985,
+    "min": 2049.4860236182235,
+    "max": 2279.633194822825
+   }
+  },
+  "peak_mem_gb": 1.945257472,
+  "latency_ms_p50": 47.61335049988702,
+  "latency_ms_p95": 52.26215560005585,
+  "cos_mean": 0.9989709854125977,
+  "cos_min": 0.9977842569351196,
+  "top10_overlap": 0.8795000000000002,
+  "ndcg@10": 0.8503638407561767,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "BAAI/bge-m3",
+  "technique": "ort-fp16-cuda",
+  "prep_seconds": 11.2,
+  "throughput": {
+   "16": {
+    "passages_per_s": 661.779377105307,
+    "min": 661.0592406920434,
+    "max": 665.9016597507575
+   },
+   "64": {
+    "passages_per_s": 650.9134874562689,
+    "min": 644.745168359251,
+    "max": 655.2033888100577
+   },
+   "256": {
+    "passages_per_s": 528.4170922569771,
+    "min": 528.3870032590355,
+    "max": 528.8535146353363
+   }
+  },
+  "peak_mem_gb": 1.1356416,
+  "latency_ms_p50": 7.095995500094432,
+  "latency_ms_p95": 8.523769349721988,
+  "cos_mean": 0.9999967217445374,
+  "cos_min": 0.999789834022522,
+  "top10_overlap": 0.9954999999999999,
+  "ndcg@10": 0.8894874919980037,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "technique": "pt-fp16-sdpa+compile",
+  "prep_seconds": 3.0,
+  "throughput": {
+   "16": {
+    "passages_per_s": 3161.0576412067912,
+    "min": 3121.4498190485033,
+    "max": 3199.335641316861
+   },
+   "64": {
+    "passages_per_s": 4474.095383128777,
+    "min": 4432.4806620156,
+    "max": 4538.792258605085
+   },
+   "256": {
+    "passages_per_s": 4832.190403724151,
+    "min": 4766.988670194946,
+    "max": 4909.059633474779
+   }
+  },
+  "first_encode_seconds": 7.0,
+  "peak_mem_gb": 0.877000192,
+  "latency_ms_p50": 2.8891699998894182,
+  "latency_ms_p95": 4.85442435083314,
+  "cos_mean": 0.9999996423721313,
+  "cos_min": 0.9999969601631165,
+  "top10_overlap": 0.9984999999999999,
+  "ndcg@10": 0.3816169149089533,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "technique": "pt-bf16+int8dyn+compile",
+  "error": "RuntimeError: self.size(0) needs to be greater than 16, but got 16"
+ },
+ {
+  "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "technique": "pt-bf16+fp8dyn+compile",
+  "prep_seconds": 1.5,
+  "throughput": {
+   "16": {
+    "passages_per_s": 2349.0817732990654,
+    "min": 2238.215104746119,
+    "max": 2487.2435883101152
+   },
+   "64": {
+    "passages_per_s": 4265.857564306734,
+    "min": 4168.984761160608,
+    "max": 4317.779550777951
+   },
+   "256": {
+    "passages_per_s": 5216.291308710188,
+    "min": 5153.355538144414,
+    "max": 5360.0010753269125
+   }
+  },
+  "first_encode_seconds": 35.1,
+  "peak_mem_gb": 0.653412352,
+  "latency_ms_p50": 7.03558300028817,
+  "latency_ms_p95": 10.754290500381103,
+  "cos_mean": 0.9984999895095825,
+  "cos_min": 0.9887450933456421,
+  "top10_overlap": 0.9320000000000002,
+  "ndcg@10": 0.3834174386795705,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "intfloat/multilingual-e5-small",
+  "technique": "pt-bf16+int8dyn+compile",
+  "error": "RuntimeError: self.size(0) needs to be greater than 16, but got 16"
+ },
+ {
+  "model": "BAAI/bge-m3",
+  "technique": "pt-fp16-sdpa+compile",
+  "prep_seconds": 3.7,
+  "throughput": {
+   "16": {
+    "passages_per_s": 716.6567416336649,
+    "min": 716.1530599867059,
+    "max": 717.1418505461813
+   },
+   "64": {
+    "passages_per_s": 776.9363480299394,
+    "min": 770.1738684605673,
+    "max": 779.8911066162742
+   },
+   "256": {
+    "passages_per_s": 683.4155161677633,
+    "min": 683.2993205266072,
+    "max": 685.0999521633137
+   }
+  },
+  "first_encode_seconds": 31.0,
+  "peak_mem_gb": 2.614659072,
+  "latency_ms_p50": 7.468560499546584,
+  "latency_ms_p95": 8.638576399835074,
+  "cos_mean": 0.999998927116394,
+  "cos_min": 0.9998122453689575,
+  "top10_overlap": 0.9964999999999999,
+  "ndcg@10": 0.8894202758645372,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "BAAI/bge-m3",
+  "technique": "pt-bf16+int8dyn+compile",
+  "error": "RuntimeError: self.size(0) needs to be greater than 16, but got 16"
+ },
+ {
+  "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "technique": "ort-fp16-tensorrt",
+  "prep_seconds": 46.5,
+  "throughput": {
+   "16": {
+    "passages_per_s": 3675.431937518973,
+    "min": 3636.891398899639,
+    "max": 3724.975219532448
+   },
+   "64": {
+    "passages_per_s": 6555.989339694755,
+    "min": 6183.979104729781,
+    "max": 6718.214846161268
+   },
+   "256": {
+    "passages_per_s": 6992.248468524338,
+    "min": 6989.035180520895,
+    "max": 7088.324133754995
+   }
+  },
+  "peak_mem_gb": 0.2371712,
+  "latency_ms_p50": 2.407991000382026,
+  "latency_ms_p95": 2.8680346498731524,
+  "cos_mean": 0.999998927116394,
+  "cos_min": 0.9999767541885376,
+  "top10_overlap": 0.9984999999999999,
+  "ndcg@10": 0.38089063517123184,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "intfloat/multilingual-e5-small",
+  "technique": "pt-fp16-sdpa+compile",
+  "prep_seconds": 3.5,
+  "throughput": {
+   "16": {
+    "passages_per_s": 3050.211697349992,
+    "min": 3049.002409630605,
+    "max": 3056.7769066901833
+   },
+   "64": {
+    "passages_per_s": 4345.972066927611,
+    "min": 4241.901495546494,
+    "max": 4412.288163851484
+   },
+   "256": {
+    "passages_per_s": 4740.333535554844,
+    "min": 4620.274610965997,
+    "max": 4769.874102878627
+   }
+  },
+  "first_encode_seconds": 11.4,
+  "peak_mem_gb": 0.877000192,
+  "latency_ms_p50": 2.99240850017668,
+  "latency_ms_p95": 5.0920548503199825,
+  "cos_mean": 1.0,
+  "cos_min": 0.9999995827674866,
+  "top10_overlap": 0.9895,
+  "ndcg@10": 0.8554264559921946,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "intfloat/multilingual-e5-small",
+  "technique": "ort-fp16-tensorrt",
+  "prep_seconds": 26.3,
+  "throughput": {
+   "16": {
+    "passages_per_s": 3783.9023365094686,
+    "min": 3559.798338383772,
+    "max": 3843.9339595069578
+   },
+   "64": {
+    "passages_per_s": 5848.678238703359,
+    "min": 5683.221315879174,
+    "max": 6164.779827147669
+   },
+   "256": {
+    "passages_per_s": 6223.367032709293,
+    "min": 6150.084979492281,
+    "max": 6308.523104279918
+   }
+  },
+  "peak_mem_gb": 0.2371712,
+  "latency_ms_p50": 3.195338000296033,
+  "latency_ms_p95": 3.4495394003897673,
+  "cos_mean": 0.9999992847442627,
+  "cos_min": 0.9999984502792358,
+  "top10_overlap": 0.9969999999999999,
+  "ndcg@10": 0.8561100926948744,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "intfloat/multilingual-e5-small",
+  "technique": "pt-bf16+fp8dyn+compile",
+  "prep_seconds": 5.3,
+  "throughput": {
+   "16": {
+    "passages_per_s": 2666.853595324679,
+    "min": 2666.609172795173,
+    "max": 2688.253088060174
+   },
+   "64": {
+    "passages_per_s": 4398.764356740695,
+    "min": 4362.667659458643,
+    "max": 4430.470931114733
+   },
+   "256": {
+    "passages_per_s": 5337.897655743626,
+    "min": 5258.2802931805445,
+    "max": 5365.742115227693
+   }
+  },
+  "first_encode_seconds": 42.3,
+  "peak_mem_gb": 0.653412352,
+  "latency_ms_p50": 3.8821810000015944,
+  "latency_ms_p95": 6.101029500001687,
+  "cos_mean": 0.9989719390869141,
+  "cos_min": 0.9982667565345764,
+  "top10_overlap": 0.8800000000000001,
+  "ndcg@10": 0.8557850690323979,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "BAAI/bge-m3",
+  "technique": "ort-fp16-tensorrt",
+  "prep_seconds": 66.7,
+  "throughput": {
+   "16": {
+    "passages_per_s": 1106.503666726318,
+    "min": 1102.930226340059,
+    "max": 1106.6822716429276
+   },
+   "64": {
+    "passages_per_s": 1161.34889820936,
+    "min": 1159.8719339002928,
+    "max": 1166.9850870082914
+   },
+   "256": {
+    "passages_per_s": 1065.856559972319,
+    "min": 1062.0700064374028,
+    "max": 1072.3089375450115
+   }
+  },
+  "peak_mem_gb": 1.1356416,
+  "latency_ms_p50": 4.907911499998363,
+  "latency_ms_p95": 5.982537750011829,
+  "cos_mean": 0.9999895095825195,
+  "cos_min": 0.9992433190345764,
+  "top10_overlap": 0.992,
+  "ndcg@10": 0.8900587997763655,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ },
+ {
+  "model": "BAAI/bge-m3",
+  "technique": "pt-bf16+fp8dyn+compile",
+  "prep_seconds": 5.0,
+  "throughput": {
+   "16": {
+    "passages_per_s": 958.0061415939176,
+    "min": 927.4446597081435,
+    "max": 973.8047268567083
+   },
+   "64": {
+    "passages_per_s": 1139.6571753431042,
+    "min": 1135.6421180810448,
+    "max": 1139.9665609162823
+   },
+   "256": {
+    "passages_per_s": 1025.7082558201487,
+    "min": 1024.5919874142298,
+    "max": 1027.4787063469848
+   }
+  },
+  "first_encode_seconds": 55.9,
+  "peak_mem_gb": 1.942596096,
+  "latency_ms_p50": 11.274307500002578,
+  "latency_ms_p95": 12.356684000008045,
+  "cos_mean": 0.9941186308860779,
+  "cos_min": 0.9867360591888428,
+  "top10_overlap": 0.8735,
+  "ndcg@10": 0.8902272874417634,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU"
+ }
+]
