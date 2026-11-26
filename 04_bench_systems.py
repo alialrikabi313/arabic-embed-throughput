@@ -156,7 +156,11 @@ def make_encoder(name: str, technique: str, tmp_dir: str):
         cfg = Int8DynamicActivationInt8WeightConfig() if "int8dyn" in rest else Float8DynamicActivationFloat8WeightConfig()
         quantize_(inner, cfg)
     if "compile" in rest:
-        st[0].auto_model = torch.compile(inner, dynamic=True)
+        # نغلّف forward نفسه: إسناد st[0].auto_model لا يبدّل ما تستدعيه ST فتبقى الترجمة معطّلة بصمت
+        from torch._dynamo.utils import counters
+
+        counters.clear()
+        inner.forward = torch.compile(inner.forward, dynamic=True)
 
     def encode(texts: list[str], bs: int) -> np.ndarray:
         return st.encode(texts, batch_size=bs, normalize_embeddings=True, convert_to_numpy=True,
@@ -187,6 +191,11 @@ def measure(name: str, technique: str, inputs: dict, ref: dict, tmp_dir: str) ->
             encode(docs, bs)
         if "compile" in technique and bs == BATCH_SIZES[0]:
             row["first_encode_seconds"] = round(time.perf_counter() - t_warm, 1)  # يشمل الترجمة
+            from torch._dynamo.utils import counters
+
+            # حارس: صف باسم +compile بلا أي رسم مترجَم كان سيُنشر باسم خاطئ (حدث فعلاً قبل إصلاح التغليف)
+            if not counters["stats"].get("unique_graphs"):
+                raise RuntimeError("torch.compile لم يُسجّل أي رسم: الترجمة غير فعّالة")
         secs = [timed(lambda: encode(docs, bs), sync) for _ in range(TIMED_RUNS)]
         row["throughput"][str(bs)] = {"passages_per_s": N_PASSAGES / statistics.median(secs),
                                       "min": N_PASSAGES / max(secs), "max": N_PASSAGES / min(secs)}
