@@ -34,3 +34,17 @@ BATCH_SIZES = (16, 64, 256)
 WARMUP_RUNS = 1
 TIMED_RUNS = 3  # الوسيط مع min/max؛ الاهتزاز يظهر على لابتوب (حرارة/طاقة)
 LATENCY_QUERIES = 100  # زمن استعلام مفرد (دفعة = 1): السيناريو الحيّ للبحث
+
+# ── المرحلة الثانية: تقنيات الاستدلال (WSL) وقياس الجودة الفعلي ──
+# مجموعة جودة: استعلامات dev الحقيقية + كل موجباتها + سلبياتها المُحكَّمة + مشتّتات عشوائية.
+# 20 ألف مقطع بدل 2.06 مليون: يكفي لكشف فرق الجودة بين الدقات ويبقى التشغيل بدقائق.
+# المطلق لا يُقارَن برقم MIRACL الكامل (الكوربس أصغر فالأرقام أعلى)؛ المقارنة بين التركيبات فقط
+QUALITY_DIR = Path(os.environ.get("AET_QUALITY_DIR", _HERE.parent / "arabic-embed-throughput-data"))
+QUALITY_SUBSET_JSONL = QUALITY_DIR / "quality_subset.jsonl"
+QUALITY_QUERIES_JSON = QUALITY_DIR / "quality_queries.json"
+QRELS_TSV = MIRACL_DIR / "miracl-v1.0-ar" / "qrels" / "qrels.miracl-v1.0-ar-dev.tsv"
+CORPUS_SHARDS = [MIRACL_DIR / "miracl-corpus-v1.0-ar" / f"docs-{i}.jsonl.gz" for i in range(5)]
+QUALITY_N_QUERIES = 500
+QUALITY_N_PASSAGES = 20_000
+SYSTEMS_RESULTS_JSON = _HERE / "results" / "systems.json"
+SYSTEMS_RESULTS_MD = _HERE / "results_systems.md"
