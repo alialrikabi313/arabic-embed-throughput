@@ -40,7 +40,7 @@ from config import (
 from parity import cosine_stats, topk_overlap
 from quality import ndcg_at_k
 
-LOCK_POLL_S = 20
+LOCK_POLL_S = 1  # فحص كل ثانية: بفحص 20ث خسرنا سباق التحرير ساعة كاملة أمام من يعيد الإمساك فوراً
 
 
 @contextlib.contextmanager
@@ -51,7 +51,7 @@ def gpu_lock():
             os.mkdir(GPU_LOCK)
             break
         except FileExistsError:
-            print(f"… القفل ممسوك، انتظار {LOCK_POLL_S}ث", flush=True)
+            pass
             time.sleep(LOCK_POLL_S)
     try:
         yield
