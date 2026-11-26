@@ -254,35 +254,51 @@ def load_inputs(name: str) -> dict:
     }
 
 
-def main() -> None:
+def run_one(name: str, tech: str, out_path: str, tmp_dir: str) -> None:
+    """يقيس تركيبة واحدة داخل هذه العملية (تُستدعى من عملية فرعية) ويكتب صفها في ملف."""
     import torch
 
-    if not torch.cuda.is_available():
-        sys.exit("يتطلب GPU (CUDA غير متاح)")
+    inputs = load_inputs(name)
+    with gpu_lock():
+        row = measure(name, tech, inputs, {}, tmp_dir)
+    row["gpu"] = torch.cuda.get_device_name(0)
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(row, f, ensure_ascii=False)
+
+
+def main() -> None:
+    import subprocess
+
+    if len(sys.argv) >= 2 and sys.argv[1] == "--one":
+        run_one(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+        return
     if not QUALITY_SUBSET_JSONL.exists():
         sys.exit(f"شغّل 03_build_quality_subset.py أولاً ({QUALITY_SUBSET_JSONL})")
     SYSTEMS_RESULTS_JSON.parent.mkdir(exist_ok=True)
     results = json.loads(SYSTEMS_RESULTS_JSON.read_text(encoding="utf-8")) if SYSTEMS_RESULTS_JSON.exists() else []
     done = {(r["model"], r["technique"]) for r in results}
     tmp_dir = tempfile.mkdtemp(prefix="aet_")
-    gpu = torch.cuda.get_device_name(0)
 
     for name in MODELS:
-        inputs, ref = load_inputs(name), {}
         for tech in TECHNIQUES:
             if (name, tech) in done:
                 continue
             print(f"◄ {name.split('/')[-1]} {tech}", flush=True)
-            try:
-                with gpu_lock():
-                    row = measure(name, tech, inputs, ref, tmp_dir)
-                row["gpu"] = gpu
-            except Exception as e:  # تقنية غير مدعومة تُسجَّل بسببها (لا تُخفى ولا توقف الباقي)
-                row = {"model": name, "technique": tech, "error": f"{type(e).__name__}: {str(e)[:200]}"}
+            out_path = os.path.join(tmp_dir, "row.json")
+            if os.path.exists(out_path):
+                os.remove(out_path)
+            # عملية فرعية لكل صف: خطأ CUDA «unknown error» يُفسد السياق نهائياً فيقتل العملية كلها
+            # (حدث لصفوف e5 المكمَّمة والمترجَمة)؛ العزل يجعله فشلاً مسجَّلاً لصفّه فقط
+            proc = subprocess.run([sys.executable, __file__, "--one", name, tech, out_path, tmp_dir],
+                                  capture_output=True, text=True, encoding="utf-8")
+            if proc.returncode == 0 and os.path.exists(out_path):
+                row = json.loads(open(out_path, encoding="utf-8").read())
+            else:
+                tail = [l for l in proc.stderr.splitlines() if l.strip()][-1:] or ["(بلا مخرجات)"]
+                row = {"model": name, "technique": tech, "error": f"subprocess exit {proc.returncode}: {tail[0][:200]}"}
                 print(f"  ✗ {row['error']}", flush=True)
                 if tech == TECHNIQUES[0]:
                     sys.exit("فشل المرجع fp32؛ لا معنى لمقارنة التكافؤ")
-            torch.cuda.empty_cache()
             results.append(row)
             SYSTEMS_RESULTS_JSON.write_text(json.dumps(results, indent=1, ensure_ascii=False), encoding="utf-8")
     print(f"✓ {len(results)} تركيبة ← {SYSTEMS_RESULTS_JSON}")
