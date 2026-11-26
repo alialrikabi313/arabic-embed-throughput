@@ -72,7 +72,7 @@ class OrtEncoder:
 
         if hasattr(ort, "preload_dlls"):
             ort.preload_dlls()
-        pooling = st_model[1].get_pooling_mode_str()  # mean (MiniLM, e5) أو cls (bge-m3)
+        pooling = st_model[1].pooling_mode  # mean (MiniLM, e5) أو cls (bge-m3)؛ في sentence-transformers 6 خاصية لا دالة
         self.tok = st_model.tokenizer
         base = st_model[0].auto_model
 
