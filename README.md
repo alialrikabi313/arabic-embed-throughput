@@ -18,10 +18,7 @@ Hardware: one laptop RTX 5090 (see caveats). Full table: [results.md](results.md
 
 1. **fp16 + SDPA is ~3–3.7× faster than strict fp32 with eager attention**, while keeping the top-10
    ranking within 0.985–0.998 of fp32. It also cuts peak memory (MiniLM 2.79 → 1.14 GB).
-2. **bf16 is as fast as fp16 but less faithful.** Mean/min cosine to fp32 looks fine (min ≥ 0.9975),
-   yet the retrieved top-10 diverges more — for e5-small only 91.6% overlap. Cosine similarity of
-   the embeddings alone would have hidden this; measure the ranking. (More mantissa bits matter when
-   the scores of neighbouring passages are close.)
+2. **bf16 is as fast as fp16 but changes the ranking more.** Mean/min cosine to fp32 looks fine (min >= 0.9975), yet the retrieved top-10 agrees less with fp32's — for e5-small only 91.6% overlap. This is agreement, not quality: in the later systems sweep (`results_systems.md`, 500 queries) bf16/SDPA nDCG@10 stays within ±0.0013 of fp32. So "bf16 reorders neighbours" is measured; "bf16 hurts retrieval" is not. Cosine alone would have hidden the reordering; measure the ranking, and then measure quality.
 3. **SDPA attention alone gives ~1.1–1.4×** (smallest for bge-m3 in fp32: 1.11×), plus lower memory.
 4. **Single-query latency is flat**: ~4.3–5.3 ms for the small models and ~8–9 ms for bge-m3 at
    batch size 1, regardless of precision or attention. It is launch-bound, so these optimisations
